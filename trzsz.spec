@@ -1,5 +1,3 @@
-%global _missing_build_ids_terminate_build 0
-
 Name:           trzsz
 Version:        1.1.8
 Release:        1
@@ -16,6 +14,10 @@ BuildRequires:  git
 %undefine _debugsource_packages
 %endif
 
+%if 0%{?openEuler}
+%define debug_package %{nil}
+%endif
+
 %description
 trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz ), and compatible with tmux.
 
@@ -24,7 +26,7 @@ trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz 
 
 %build
 %if 0%{?mageia} == 8
-unset GOPROXY
+export GOPROXY=direct
 %endif
 go build -o %{_builddir}/bin/trz ./cmd/trz
 go build -o %{_builddir}/bin/tsz ./cmd/tsz
