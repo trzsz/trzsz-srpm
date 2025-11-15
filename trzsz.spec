@@ -14,7 +14,7 @@ BuildRequires:  git
 %undefine _debugsource_packages
 %endif
 
-%if 0%{?openEuler}
+%if 0%{?openEuler} || 0%{?mageia} == 8
 %define debug_package %{nil}
 %endif
 
