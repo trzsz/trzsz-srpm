@@ -1,3 +1,5 @@
+%global _missing_build_ids_terminate_build 0
+
 Name:           trzsz
 Version:        1.1.8
 Release:        1
@@ -10,20 +12,8 @@ Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 BuildRequires:  golang >= 1.20
 BuildRequires:  git
 
-%if 0%{?rhel} >= 8 && 0%{?rhel} <= 9
+%if 0%{?rhel} >= 8 && 0%{?rhel} <= 9 || 0%{?mageia}
 %undefine _debugsource_packages
-%endif
-
-%if 0%{?openEuler}
-%undefine _debugsource_packages
-%endif
-
-%if 0%{?mageia}
-%undefine _debugsource_packages
-%endif
-
-%if 0%{?mageia} == 8
-unset GOPROXY
 %endif
 
 %description
@@ -33,6 +23,9 @@ trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz 
 %autosetup -n %{name}-go-%{version}
 
 %build
+%if 0%{?mageia} == 8
+unset GOPROXY
+%endif
 go build -o %{_builddir}/bin/trz ./cmd/trz
 go build -o %{_builddir}/bin/tsz ./cmd/tsz
 go build -o %{_builddir}/bin/trzsz ./cmd/trzsz
