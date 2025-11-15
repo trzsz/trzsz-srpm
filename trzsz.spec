@@ -14,6 +14,18 @@ BuildRequires:  git
 %undefine _debugsource_packages
 %endif
 
+%if 0%{?openeuler} || 0%{?dist} =~ /^oe/
+%undefine _debugsource_packages
+%endif
+
+%if 0%{?mageia} || 0%{?dist} =~ /^mga/
+%undefine _debugsource_packages
+%endif
+
+%if 0%{?dist} == 0mga8
+unset GOPROXY
+%endif
+
 %description
 trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz ), and compatible with tmux.
 
