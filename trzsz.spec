@@ -1,0 +1,36 @@
+Name:           trzsz
+Version:        1.1.8
+Release:        1
+Summary:        Simple file transfer tools, similar to lrzsz (rz/sz), and compatible with tmux.
+
+License:        MIT
+URL:            https://github.com/trzsz/trzsz-go
+Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
+
+BuildRequires:  golang >= 1.20
+
+%description
+trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz ), and compatible with tmux.
+
+%prep
+%autosetup -n %{name}-go-%{version}
+
+%build
+go build -o %{_builddir}/bin/trz ./cmd/trz
+go build -o %{_builddir}/bin/tsz ./cmd/tsz
+go build -o %{_builddir}/bin/trzsz ./cmd/trzsz
+
+%install
+mkdir -p %{buildroot}%{_bindir}
+install -m 0755 %{_builddir}/bin/trz %{buildroot}%{_bindir}/trz
+install -m 0755 %{_builddir}/bin/tsz %{buildroot}%{_bindir}/tsz
+install -m 0755 %{_builddir}/bin/trzsz %{buildroot}%{_bindir}/trzsz
+
+%files
+%{_bindir}/trz
+%{_bindir}/tsz
+%{_bindir}/trzsz
+
+%changelog
+* Sat Nov 15 2025 Lonny Wong <lonnywong@qq.com> - 1.1.8-1
+- Initial RPM spec for trzsz

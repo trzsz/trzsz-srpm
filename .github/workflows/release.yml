@@ -1,0 +1,28 @@
+name: Release build srpm
+permissions:
+  contents: write
+on:
+  release:
+    types: [released]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Install Tools
+        run: dnf -y install rpkg
+      - name: Build SRPM
+        run: |
+          mkdir -p build
+          cp *.spec build/
+          rpkg srpm --outdir ./build
+      - name: Show Checksum
+        run: sha256sum ./build/*.src.rpm
+      - name: Upload Release Assets
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            ./build/*.src.rpm
