@@ -8,6 +8,11 @@ URL:            https://github.com/trzsz/trzsz-go
 Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  golang >= 1.20
+BuildRequires:  git
+
+%if 0%{?rhel} >= 8 && 0%{?rhel} <= 9
+%undefine _debugsource_packages
+%endif
 
 %description
 trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz ), and compatible with tmux.
