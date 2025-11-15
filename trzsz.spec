@@ -14,15 +14,15 @@ BuildRequires:  git
 %undefine _debugsource_packages
 %endif
 
-%if 0%{?openeuler} || "%{?dist}" =~ /^oe/
+%if 0%{?openEuler}
 %undefine _debugsource_packages
 %endif
 
-%if 0%{?mageia} || "%{?dist}" =~ /^mga/
+%if 0%{?mageia}
 %undefine _debugsource_packages
 %endif
 
-%if "%{?dist}" == "mga8"
+%if 0%{?mageia} == 8
 unset GOPROXY
 %endif
 
