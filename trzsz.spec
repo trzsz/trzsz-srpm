@@ -28,9 +28,6 @@ trzsz ( trz / tsz ) is a simple file transfer tools, similar to lrzsz ( rz / sz 
 %if 0%{?mageia} == 8
 export GOPROXY=direct
 %endif
-%if 0%{?openEuler}
-export GOPROXY=https://goproxy.cn,direct
-%endif
 go build -o %{_builddir}/bin/trz ./cmd/trz
 go build -o %{_builddir}/bin/tsz ./cmd/tsz
 go build -o %{_builddir}/bin/trzsz ./cmd/trzsz
