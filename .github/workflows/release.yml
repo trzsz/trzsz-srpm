@@ -11,17 +11,17 @@ jobs:
       image: fedora:latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Tools
-        run: dnf -y install rpkg
+        run: dnf -y install rpkg wget
       - name: Setup Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version: "1.25"
       - name: Build SRPM
         run: |
-          version=${GITHUB_REF#refs/tags/v}
-          bin_version=${version%-*}
+          bin_version=$(awk -F':' '/^Version/ {gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}' trzsz.spec)
+          wget -q https://github.com/trzsz/trzsz-go/archive/refs/tags/v${bin_version}.tar.gz
           tar -xzf v${bin_version}.tar.gz
           cd trzsz-go-${bin_version} && go mod vendor && cd ..
           rm -f v${bin_version}.tar.gz

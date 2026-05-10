@@ -7,11 +7,13 @@ jobs:
       image: fedora:latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
       - name: Install Tools
-        run: dnf -y install rpkg
+        run: dnf -y install rpkg wget
       - name: Build SRPM
         run: |
+          bin_version=$(awk -F':' '/^Version/ {gsub(/^[ \t]+|[ \t]+$/, "", $2); print $2}' trzsz.spec)
+          wget -q https://github.com/trzsz/trzsz-go/archive/refs/tags/v${bin_version}.tar.gz
           mkdir -p build
           cp *.spec build/
           rpkg srpm --outdir ./build
