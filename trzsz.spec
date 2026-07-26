@@ -5,7 +5,7 @@ Summary:        Simple file transfer tools, similar to lrzsz (rz/sz), and compat
 
 License:        MIT
 URL:            https://trzsz.github.io/go
-Source0:        %{url}/archive/refs/tags/v%{version}.tar.gz
+Source0:        https://github.com/trzsz/trzsz-go/archive/refs/tags/v%{version}.tar.gz
 
 BuildRequires:  golang-bin >= 1.25
 

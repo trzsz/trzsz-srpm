@@ -36,3 +36,4 @@ jobs:
         with:
           files: |
             ./build/*.src.rpm
+            ./v*.tar.gz
